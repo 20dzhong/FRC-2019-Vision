@@ -1,5 +1,6 @@
 package frc.team852.command;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team852.OI;
 import frc.team852.Robot;
@@ -7,7 +8,7 @@ import frc.team852.subsystem.BallSubsystem;
 
 public class Ball extends Command {
 	private final BallSubsystem bs;
-	private boolean ballIn = false;
+	private static boolean ballIn = true;
 	
 	public Ball() {
 		requires(Robot.ballSubsystem);
@@ -16,8 +17,12 @@ public class Ball extends Command {
 	
 	@Override
 	protected void initialize() {
-		bs.dropBall();
-		bs.grabBall();
+		ballIn = !ballIn;
+		if(ballIn){
+			bs.dropBall();
+		}else{
+			bs.grabBall();
+		}
 	}
 	
 	@Override
